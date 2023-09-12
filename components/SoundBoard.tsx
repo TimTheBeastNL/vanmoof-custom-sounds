@@ -21,7 +21,7 @@ export function SoundBoard() {
             </div>
             <p className="label">Long</p>
             <div className="board">
-                <SoundBtn id={0x7}>🔋 Charding noise..</SoundBtn>
+                <SoundBtn id={0x7}>🔋 Charging noise..</SoundBtn>
                 <SoundBtn id={0xE}>🚨 Alarm</SoundBtn>
                 <SoundBtn id={0xF}>🚨 Alarm stage 2</SoundBtn>
                 <SoundBtn id={0x12}>🔋 Charging..</SoundBtn>
