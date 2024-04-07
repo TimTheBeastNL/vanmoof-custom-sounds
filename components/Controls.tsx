@@ -108,10 +108,9 @@ function SpeedLimit({ bike }: { bike: Bike }) {
         ['🇯🇵', 24, SpeedLimitEnum.JP],
         ['🇪🇺', 25, SpeedLimitEnum.EU],
         ['🇺🇸', 32, SpeedLimitEnum.US],
+        ['😎', 37, SpeedLimitEnum.NO_LIMIT],
     ]
-    if (currentFirmwareVersion?.supportsDebugSettings) {
-        options.push(['😎', 37, SpeedLimitEnum.NO_LIMIT])
-    }
+   
 
     return (
         <>
