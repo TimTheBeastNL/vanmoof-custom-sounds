@@ -3,9 +3,9 @@ import { CommonProps } from "./BellSoundWalkthrough"
 import WalkthroughButton from "./WalkthroughButton"
 import { BellTone, Bike } from "../../lib/bike"
 
-export default function UploadStep({ bike, onDismiss, convertedFile, onUploadCompleted }: CommonProps & {
+export default function UploadStep({ bike, onDismiss, selectedFile, onUploadCompleted }: CommonProps & {
     bike: Bike,
-    convertedFile: Uint8Array,
+    selectedFile: Uint8Array,
     onUploadCompleted: () => void,
 }) {
     const [uploading, setUploading] = useState<boolean>(false)
@@ -15,16 +15,15 @@ export default function UploadStep({ bike, onDismiss, convertedFile, onUploadCom
         setUploading(true)
         setUploadProgress(0)
 
-        await bike.initiateBellSoundTransfer(convertedFile)
+        await bike.initiateBellSoundTransfer(selectedFile)
 
         const chunkSize = 240
-        for (let i = 0; i < convertedFile.byteLength; i += chunkSize) {
-            const chunk = convertedFile.slice(i, i + chunkSize)
+        for (let i = 0; i < selectedFile.byteLength; i += chunkSize) {
+            const chunk = selectedFile.slice(i, i + chunkSize)
             await bike.sendBellSoundChunk(chunk)
-            setUploadProgress(i / convertedFile.byteLength)
+            setUploadProgress(i / selectedFile.byteLength)
         }
 
-        await bike.setBellTone(BellTone.Foghorn)
 
         onUploadCompleted()
         setUploading(false)
