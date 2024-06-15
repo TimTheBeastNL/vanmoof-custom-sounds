@@ -92,43 +92,7 @@ export default function ConvertStep({ onDismiss, selectedFile, onConversionCompl
         if (converting) return
         setConverting(true)
 
-        log("Choosing appropriate sample rate...")
-        const audioContext = new AudioContext()
-        const audioBuffer = await audioContext.decodeAudioData(await selectedFile.arrayBuffer())
-        const duration = audioBuffer.duration
-
-        const bestSampleRate = getBestSampleRate(duration, audioBuffer.sampleRate)
-
-        log(`Choosing sample rate of ${bestSampleRate} Hz based on file duration of ${duration} seconds`)
-
-        await loadFfmpeg()
-        const ffmpeg = globalFfmpeg
-
-        log("Loading file into memory...")
-        await ffmpeg.writeFile(selectedFile.name, await fetchFile(selectedFile))
-
-        log("Converting file...")
-        const ffmpegArgs = `-acodec pcm_s16le -ac 1 -ar ${bestSampleRate} -map_metadata -1 -fflags +bitexact`.split(" ")
-        const exitCode = await ffmpeg.exec(["-i", selectedFile.name, ...ffmpegArgs, "output.wav"])
-
-        if (exitCode !== 0) {
-            onError("There was an error converting your file. Please select a different one. Standard formats like MP3 or WAV work best.")
-            setConverting(false)
-            return
-        }
-
-        const convertedFile = await ffmpeg.readFile("output.wav", "binary") as Uint8Array
-
-        log("Applying VanMoof sound header...")
-        const fileWithHeader = applyHeader(convertedFile)
-
-        if (fileWithHeader.byteLength > 400_000) {
-            onError("The converted file is too large. Please select a shorter sound.")
-            setConverting(false)
-            return
-        }
-
-        onConversionCompleted(fileWithHeader)
+        onConversionCompleted(selectedFile)
 
         log("Done!")
         setConverting(false)
