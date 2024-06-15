@@ -18,10 +18,10 @@ export default function ConvertStep({ onDismiss, selectedFile, onConversionCompl
     const [converting, setConverting] = useState<boolean>(false)
 
     useEffect(() => {
-        startConversion()
+         onConversionCompleted(selectedFile)
     }, [])
 
-        onConversionCompleted(selectedFile)
+       
 
         log("Done!")
         setConverting(false)
