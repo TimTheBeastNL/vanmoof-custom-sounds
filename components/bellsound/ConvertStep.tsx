@@ -20,11 +20,7 @@ export default function ConvertStep({ onDismiss, selectedFile, onConversionCompl
          onConversionCompleted(selectedFile)
     }, [])
 
-       
 
-        log("Done!")
-        setConverting(false)
-    }
 
     return (
         <>
