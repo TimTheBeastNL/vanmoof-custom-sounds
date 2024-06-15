@@ -22,7 +22,7 @@ enum WalkthroughStep {
 export default function BellSoundWalkthrough({ bike, onDismiss }: CommonProps & { bike: Bike }) {
     const [currentStep, setCurrentStep] = useState<WalkthroughStep>(WalkthroughStep.SelectFile)
     const [selectedFile, setSelectedFile] = useState<File | null>(null)
-    const [convertedFile, setConvertedFile] = useState<Uint8Array | null>(null)
+    const [selectedFile, setConvertedFile] = useState<Uint8Array | null>(null)
     const [error, setError] = useState<string | null>(null)
 
     const goToStep = (step: WalkthroughStep) => {
@@ -65,7 +65,7 @@ export default function BellSoundWalkthrough({ bike, onDismiss }: CommonProps & 
                 return <UploadStep
                     bike={bike}
                     onDismiss={onDismiss}
-                    convertedFile={convertedFile!}
+                    selectedFile={selectedFile!}
                     onUploadCompleted={onUploadCompleted} />
             case WalkthroughStep.Done:
                 return <DoneStep onDismiss={onDismiss} />
