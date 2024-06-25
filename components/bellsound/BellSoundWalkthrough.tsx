@@ -57,6 +57,7 @@ export default function BellSoundWalkthrough({ bike, onDismiss }: CommonProps & 
                     onFileSelected={onFileSelected} />
             case WalkthroughStep.Convert:
                 return <ConvertStep
+                    bike={bike}
                     onDismiss={onDismiss}
                     onError={onConversionError}
                     selectedFile={selectedFile!}
