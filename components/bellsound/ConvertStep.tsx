@@ -5,6 +5,7 @@ import { CommonProps } from "./BellSoundWalkthrough"
 import { FFmpeg } from "@ffmpeg/ffmpeg"
 import { fetchFile, toBlobURL } from "@ffmpeg/util"
 import WalkthroughButton from "./WalkthroughButton"
+import { BellTone, Bike } from "../../lib/bike"
 
 const globalFfmpeg = new FFmpeg()
 
@@ -91,7 +92,7 @@ export default function ConvertStep({ onDismiss, selectedFile, onConversionCompl
     const startConversion = async () => {
         if (converting) return
         setConverting(true)
-
+        await bike.initiateBellSoundTransfer(selectedFile)
         log("Choosing appropriate sample rate...")
         const audioContext = new AudioContext()
         const audioBuffer = await audioContext.decodeAudioData(await selectedFile.arrayBuffer())
