@@ -197,7 +197,7 @@ export class Bike {
 
     async initiateBellSoundTransfer(buffer: ArrayBuffer): Promise<any> {
         const fileHeader = new Uint8Array(9)
-        fileHeader.set([0x13], 0)
+        fileHeader.set([0x00], 0)
 
         const fileSize = buffer.byteLength
         fileHeader.set([fileSize >> 24, fileSize >> 16, fileSize >> 8, fileSize], 1)
