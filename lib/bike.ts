@@ -205,6 +205,7 @@ export class Bike {
         const crc = CRC32.buf(new Uint8Array(buffer))
         fileHeader.set([crc >> 24, crc >> 16, crc >> 8, crc], 5)
         console.log(fileHeader)
+        console.log(new Uint8Array(fileHeader))
         return await this.bluetoothWrite(FIRMWARE_METADATA, new Uint8Array(fileHeader))
     }
 
