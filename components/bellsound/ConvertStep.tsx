@@ -92,7 +92,7 @@ export default function ConvertStep({ onDismiss, selectedFile, onConversionCompl
     const startConversion = async () => {
         if (converting) return
         setConverting(true)
-        await bike.initiateBellSoundTransfer(selectedFile)
+        await Bike.initiateBellSoundTransfer(selectedFile)
         log("Choosing appropriate sample rate...")
         const audioContext = new AudioContext()
         const audioBuffer = await audioContext.decodeAudioData(await selectedFile.arrayBuffer())
