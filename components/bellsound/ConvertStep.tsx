@@ -9,7 +9,8 @@ import { BellTone, Bike } from "../../lib/bike"
 
 const globalFfmpeg = new FFmpeg()
 
-export default function ConvertStep({ onDismiss, selectedFile, onConversionCompleted, onError }: CommonProps & {
+export default function ConvertStep({ bike, onDismiss, selectedFile, onConversionCompleted, onError }: CommonProps & {
+    bike: Bike,
     selectedFile: File,
     onConversionCompleted: (convertedFile: Uint8Array) => void,
     onError: (error: string) => void,
@@ -92,7 +93,7 @@ export default function ConvertStep({ onDismiss, selectedFile, onConversionCompl
     const startConversion = async () => {
         if (converting) return
         setConverting(true)
-        await Bike.initiateBellSoundTransfer(selectedFile)
+        await bike.initiateBellSoundTransfer(selectedFile)
         log("Choosing appropriate sample rate...")
         const audioContext = new AudioContext()
         const audioBuffer = await audioContext.decodeAudioData(await selectedFile.arrayBuffer())
